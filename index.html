@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catatan untuk Cindy</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        h1, h2 {
+            font-size: 2.5em;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #ff9999;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .btn:hover {
+            background-color: #ff4d4d;
+        }
+        .note {
+            background-color: #fff2f2;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            margin-top: -50px;
+            position: relative; /* Untuk mengatur posisi */
+        }
+        .note p {
+            font-size: 1.3em;
+            color: #333;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .note-title {
+            font-size: 2em;
+            color: #ff6666;
+            font-weight: bold;
+            text-align: center;
+        }
+        #note-section {
+            display: none;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .copyright {
+            font-weight: bold; /* Membuat teks tebal */
+            font-size: 1em; /* Ukuran font tetap sama */
+            color: #555; /* Warna teks yang lebih gelap */
+            margin-top: 20px; /* Jarak antara catatan dan copyright */
+            text-align: center; /* Rata tengah */
+        }
+    </style>
+</head>
+<body>
+    <!-- Halaman Awal -->
+    <div id="home-section" class="container">
+        <h1>Catatan Untuk Cindy</h1>
+        <button class="btn" onclick="showNote()">Klik Disini</button>
+    </div>
+
+    <!-- Halaman Catatan -->
+    <div id="note-section" class="note container">
+        <h2 class="note-title">Untuk Kekasihku Cindy</h2>
+        <div id="notes-container">
+            <!-- Catatan akan diisi melalui JavaScript -->
+        </div>
+        <div class="buttons">
+            <button class="btn" id="back-btn" onclick="showPreviousPage()">Kembali</button>
+            <button class="btn" id="next-btn" onclick="showNextPage()">Selanjutnya</button>
+        </div>
+        <div class="copyright">Copyright @ Edho_Nugroho_2024</div> <!-- Copyright Text -->
+    </div>
+
+    <script>
+        const notes = [
+            "1. Harus selalu inget Tuhan Yesus",
+            "2. Rajin Berdoa Cindykuu",
+            "3. Sayang sama Diri sendiri",
+            "4. Sayang sama Mama",
+            "5. Sayang sama Mbahkung",
+            "6. Baru sayang sama aku yaaa 🥰",
+            "7. Sayang sama keluargaku juga yaa",
+            "8. Kalo kemana-mana kabari",
+            "9. Pap kalo bisa wkwkw",
+            "10. Gaboleh inget mantan huaaaa😭",
+            "11. Selalu percaya sama aku",
+            "12. Kalo ada apa-apa dibicarakan baik2",
+            "13. Gaboleh berhubungan sama sekali sama bagas",
+            "14. Gaboleh nakall",
+            "15. Kalo ngambek jangan lama-lama",
+            "16. Harus tetap setia ya apapun yang terjadi",
+            "17. Jangan menghianati cintaku ya",
+            "18. Intinya selalu terbuka aja",
+            "19. Kalo ada yang goda segera bilang ya",
+            "20. Yang tidurnya lama, kasih ucapan selamat malamm",
+            "21. Yang bangunnya pagi, kasih ucapan selamat pagi",
+            "22. Kalo ada yang genit bilang ya",
+            "23. kalo ada yng mau kenalan, kalo bab pekerjaan gpp",
+            "24. Kalo kenalan hal lain GABOLEH!",
+            "25. Semarah-marahnya jangan ada kata udahan yaa",
+            "26. Harus penuh dengan kasih sayang Tuhan",
+            "27. Di sosmed jangan DM/inbox cowok ya, kecuali bab kerja",
+            "28. Jangan aneh-aneh dibelakang yaa",
+            "29. Gaboleh BOHONG",
+            "30. Jaga hati, jaga diri, jaga perasaan yaaa Loppppp"
+        ];
+
+        let currentPage = 1;
+        const notesPerPage = 10;
+
+        function showNotes() {
+            const start = (currentPage - 1) * notesPerPage;
+            const end = start + notesPerPage;
+            const notesToShow = notes.slice(start, end);
+
+            const notesContainer = document.getElementById('notes-container');
+            notesContainer.innerHTML = '';
+
+            notesToShow.forEach(note => {
+                const p = document.createElement('p');
+                p.textContent = note;
+                notesContainer.appendChild(p);
+            });
+
+            // Hide or show buttons based on current page
+            document.getElementById('back-btn').style.display = currentPage === 1 ? 'none' : 'inline-block';
+            document.getElementById('next-btn').style.display = currentPage === Math.ceil(notes.length / notesPerPage) ? 'none' : 'inline-block';
+        }
+
+        function showNote() {
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('note-section').style.display = 'block';
+            showNotes();
+        }
+
+        function showHome() {
+            document.getElementById('note-section').style.display = 'none';
+            document.getElementById('home-section').style.display = 'block';
+        }
+
+        function showNextPage() {
+            currentPage++;
+            showNotes();
+        }
+
+        function showPreviousPage() {
+            currentPage--;
+            showNotes();
+        }
+    </script>
+</body>
+</html>
